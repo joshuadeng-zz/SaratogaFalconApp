@@ -175,7 +175,7 @@ public class Features extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         refreshLayout.setRefreshing(false);
     }
 
-    public void clear() {
+    private void clear() {
         cardItems.clear();
         adapter.notifyDataSetChanged();
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SaratogaFalcon.iml" filepath="$PROJECT_DIR$/SaratogaFalcon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SaratogaFalconApp.iml" filepath="$PROJECT_DIR$/SaratogaFalconApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

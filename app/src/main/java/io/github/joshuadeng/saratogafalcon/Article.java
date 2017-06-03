@@ -21,19 +21,19 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 
-public class Article extends AppCompatActivity {//Class that displays the article when story card is clicked
+public class Article extends AppCompatActivity {
 
     private String title;
     private String author;
     private String date;
     private String url;
 
-    TextView viewtitle ;
-    TextView viewauthor;
-    TextView viewdate ;
-    TextView viewtext;
+    private TextView viewtitle ;
+    private TextView viewauthor;
+    private TextView viewdate ;
+    private TextView viewtext;
 
-    public Article(){}//necessary empty constructor
+    public Article(){}
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -43,7 +43,7 @@ public class Article extends AppCompatActivity {//Class that displays the articl
         setContentView(R.layout.activity_article);
 
 
-        Intent intent = getIntent();//transfer cardview info from MyAdapter
+        Intent intent = getIntent();
         title = intent.getStringExtra("title");
         author = intent.getStringExtra("author");
         date = intent.getStringExtra("date");
@@ -61,24 +61,24 @@ public class Article extends AppCompatActivity {//Class that displays the articl
         new Scrape().execute();
     }
 
-    private class Scrape extends AsyncTask<Void, Void, String> {//Scrape the story
+    private class Scrape extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
             Document doc;
             String story;
             if (url.contains("%E2%80%98")||url.contains("%E2%80%99")||url.contains("%C3%B1")
-                    ||url.contains("%E2%80%A6")||url.contains("%C3%A7")||url.contains("%E2%80%94")) {//some special symbols mess up the URL connector
-                doc = urlFixer(url);//pass to URL fixer
+                    ||url.contains("%E2%80%A6")||url.contains("%C3%A7")||url.contains("%E2%80%94")) {
+                doc = urlFixer(url);
                 Elements elements = doc.getElementsByClass("story_body");
                 story = elements.toString();
-                story = story.substring(story.indexOf("<p"), story.indexOf("</div>"));//parse the story
+                story = story.substring(story.indexOf("<p"), story.indexOf("</div>"));
                 return story;
             } else
                 try {
                     doc = Jsoup.connect(url).get();
                     Elements elements = doc.getElementsByClass("story_body");
                     story = elements.toString();
-                    story = story.substring(story.indexOf("<p"),story.indexOf("</div>"));//parse the story
+                    story = story.substring(story.indexOf("<p"),story.indexOf("</div>"));
                     return story;
 
                 } catch (IOException e) {
@@ -92,35 +92,33 @@ public class Article extends AppCompatActivity {//Class that displays the articl
 
         protected void onPostExecute(String story){
             Spanned body;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)//for Android versions 7.0 and  higher
-                body = Html.fromHtml(story,Html.FROM_HTML_MODE_LEGACY);//new html method
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+                body = Html.fromHtml(story,Html.FROM_HTML_MODE_LEGACY);
             else
-                body = Html.fromHtml(story);//Deprecated html method, for devices not on Android 7 or greater
+                body = Html.fromHtml(story);
 
-            viewtext.setText(body);//set Textview with html text
-            viewtext.setMovementMethod(LinkMovementMethod.getInstance());//allows hyperlinks in article to be clicked
+            viewtext.setText(body);
+            viewtext.setMovementMethod(LinkMovementMethod.getInstance());
 
         }
     }
 
-    private static Document urlFixer (String url) {//Jsoup(library for parsing html) has some trouble when connecting to URLs with special symbols (UTF-8)
-        Document doc = null;
+    private static Document urlFixer (String url) {
+        Document doc;
         try {
-            Connection connect = Jsoup.connect(url); //use connect obj
+            Connection connect = Jsoup.connect(url);
             URI u = null;
             try {
-                u = new URI(url);//build new url with URI
+                u = new URI(url);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
-            }//use below to keep url from getting screwed
+            }
             doc = connect.url(new URI(u.getScheme(), u.getUserInfo(), u.getHost(), u.getPort(), URLDecoder.decode(u.getPath(), "UTF-8"), u.getQuery(), u.getFragment()).toURL()).get();
             return doc;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return doc;
+        return null;
     }
 
 

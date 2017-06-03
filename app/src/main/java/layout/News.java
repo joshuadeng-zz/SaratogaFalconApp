@@ -88,26 +88,26 @@ public class News extends Fragment implements SwipeRefreshLayout.OnRefreshListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
-        newsView = (RecyclerView) view.findViewById(R.id.RecyclerNews);//initiate view
-        refreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.refresh);//add swipe to refresh
+        newsView = (RecyclerView) view.findViewById(R.id.RecyclerNews);
+        refreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.refresh);
         refreshLayout.setOnRefreshListener(this);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         newsView.setLayoutManager(linearLayoutManager);
 
-        cardItems = new ArrayList<>();//
-        final int[] i = {0};//this 1 member array represents the page numbers on the website, it will get incremented
-        scrapeData(i[0]);//o
+        cardItems = new ArrayList<>();
+        final int[] i = {0};
+        scrapeData(i[0]);
 
         adapter = new MyAdapter(cardItems,getActivity());
         newsView.setAdapter(adapter);//put cardItems ArrayList on UI
 
         newsView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {//when scrolling keep loading stories
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (linearLayoutManager.findLastVisibleItemPosition() == cardItems.size()-1){
-                    i[0]++;//increment the number corresponding to website page number, so more stories can be loaded
-                    scrapeData(i[0]);//call scrape data method
+                    i[0]++;
+                    scrapeData(i[0]);
 
                 }
             }
@@ -125,7 +125,7 @@ public class News extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                 Document doc;
 
                 try {
-                    doc = Jsoup.connect("http://saratogafalcon.org/news?page="+id).get();//retrieve HTML on page
+                    doc = Jsoup.connect("http://saratogafalcon.org/news?page="+id).get();
                     Elements titles = doc.getElementsByClass("teaser_header");
                     Elements dates = doc.getElementsByClass("pub_info");
                     Elements authors = doc.getElementsByClass("author_info");
@@ -136,24 +136,24 @@ public class News extends Fragment implements SwipeRefreshLayout.OnRefreshListen
                     String alldates = dates.toString();
                     String allurls = urls.toString();
 
-                    for (int j = 0; j < 5; j++) {//5 stories on 1 page so parse the HTML 5 times
-                        alltitles = alltitles.substring(alltitles.indexOf("<a"));//title
+                    for (int j = 0; j < 5; j++) {
+                        alltitles = alltitles.substring(alltitles.indexOf("<a"));
                         String title = alltitles.substring(alltitles.indexOf(">") + 1, alltitles.indexOf("</"));
                         alltitles = alltitles.substring(alltitles.indexOf("</div>"));
 
-                        String author = allauthors.substring(allauthors.indexOf("by"), allauthors.indexOf("</"));//authors
+                        String author = allauthors.substring(allauthors.indexOf("by"), allauthors.indexOf("</"));
                         allauthors = allauthors.substring(allauthors.indexOf("</span>") + 7);
 
-                        String date = alldates.substring(alldates.indexOf(">") + 3, alldates.indexOf(" —"));//date
+                        String date = alldates.substring(alldates.indexOf(">") + 3, alldates.indexOf(" —"));
                         alldates = alldates.substring(alldates.indexOf("</div>") + 6);
 
-                        allurls = allurls.substring(allurls.indexOf("<a"));//URL
+                        allurls = allurls.substring(allurls.indexOf("<a"));
                         String url = "http://saratogafalcon.org" +
                                 allurls.substring(allurls.indexOf("href=") + 6, allurls.indexOf("\">"));
                         allurls = allurls.substring(allurls.indexOf("</div>"));
 
 
-                        cardItems.add(new CardItem(title, author, date, url));//add parsed strings to ArrayList
+                        cardItems.add(new CardItem(title, author, date, url));
                     }
 
                 } catch (IOException e) {
@@ -166,11 +166,11 @@ public class News extends Fragment implements SwipeRefreshLayout.OnRefreshListen
             }
         };
 
-        task.execute(id);//run async task with id(page number)
+        task.execute(id);
     }
 
     @Override
-    public void onRefresh() {//what happens when u swipe down to refresh
+    public void onRefresh() {
         clear();
         scrapeData(0);
         adapter = new MyAdapter(cardItems,getActivity());
@@ -178,7 +178,7 @@ public class News extends Fragment implements SwipeRefreshLayout.OnRefreshListen
         refreshLayout.setRefreshing(false);
     }
 
-    public void clear() {
+    private void clear() {
         cardItems.clear();
         adapter.notifyDataSetChanged();
     }

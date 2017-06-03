@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/activity_vertical_margin">
@@ -19,7 +18,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="Seating irregularity invalidates seven AP exams, leading to retakes"
                 android:textAppearance="@android:style/TextAppearance.Large" />
 
             <TextView
@@ -27,14 +25,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
-                android:text="By Joshua Deng"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5/22/17"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:paddingBottom="10dp"/>
 
@@ -42,7 +38,6 @@
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=""
                 android:textColorLink="@color/colorPrimaryDark"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:textColor="@color/textColor"/>

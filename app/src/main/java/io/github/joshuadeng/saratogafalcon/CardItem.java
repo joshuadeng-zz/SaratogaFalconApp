@@ -4,17 +4,13 @@ package io.github.joshuadeng.saratogafalcon;
  * Created by Joshua on 5/23/2017.
  */
 
-public class CardItem {//class for the object CardItem, displays the story info in the cardview
+@SuppressWarnings("DefaultFileTemplate")
+public class CardItem {
     private String title;
     private String author;
     private String date;
     private String url;
 
-    public CardItem(String title, String author, String date) {
-        this.title = title;
-        this.author = author;
-        this.date = date;
-    }
 
     public CardItem(String title, String author, String date, String url) {
         this.title = title;

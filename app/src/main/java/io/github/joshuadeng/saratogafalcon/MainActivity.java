@@ -1,22 +1,16 @@
 package io.github.joshuadeng.saratogafalcon;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import layout.Columns;
 import layout.Features;
@@ -74,12 +68,6 @@ public class MainActivity extends AppCompatActivity//Almost all auto-generated
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -100,20 +88,15 @@ public class MainActivity extends AppCompatActivity//Almost all auto-generated
 
             switch (position) {
                 case 0:
-                    News newstab = new News();
-                    return newstab;
+                    return new News();
                 case 1:
-                    Sports sportstab = new Sports();
-                    return sportstab;
+                    return new Sports();
                 case 2:
-                    Opinion opiniontab = new Opinion();
-                    return opiniontab;
+                    return new Opinion();
                 case 3:
-                    Columns columnstab = new Columns();
-                    return columnstab;
+                    return new Columns();
                 case 4:
-                    Features featurestab = new Features();
-                    return featurestab;
+                    return new Features();
                 default:
                     return null;
             }

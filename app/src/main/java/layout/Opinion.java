@@ -175,7 +175,7 @@ public class Opinion extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         refreshLayout.setRefreshing(false);
     }
 
-    public void clear() {
+    private void clear() {
         cardItems.clear();
         adapter.notifyDataSetChanged();
     }

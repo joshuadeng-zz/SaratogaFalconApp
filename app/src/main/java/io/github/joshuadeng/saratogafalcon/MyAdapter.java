@@ -8,16 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
-
-import layout.News;
 
 /**
  * Created by Joshua on 5/23/2017.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     private List<CardItem> cardItems;
@@ -47,12 +45,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.linearLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Article.class);//send intent to new class(Article)
-                intent.putExtra("title",cardItem.getTitle());//pass title to article class
-                intent.putExtra("author",cardItem.getAuthor());//pass author to article class
-                intent.putExtra("date",cardItem.getDate());//pass date to article class
-                intent.putExtra("url",cardItem.getUrl());//pass url to article class
-                context.startActivity(intent);//start Article class when a cardItem story is pressed
+                Intent intent = new Intent(context, Article.class);
+                intent.putExtra("title",cardItem.getTitle());
+                intent.putExtra("author",cardItem.getAuthor());
+                intent.putExtra("date",cardItem.getDate());
+                intent.putExtra("url",cardItem.getUrl());
+                context.startActivity(intent);
 
             }
         });
@@ -70,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public TextView date;
         public LinearLayout linearLayout;
 
-        public ViewHolder(View itemView) {//set Strings to the corresponding TextView
+        public ViewHolder(View itemView) {
             super(itemView);
 
             title = (TextView) itemView.findViewById(R.id.title);

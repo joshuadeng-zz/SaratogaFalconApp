@@ -175,7 +175,7 @@ public class Sports extends Fragment implements SwipeRefreshLayout.OnRefreshList
         refreshLayout.setRefreshing(false);
     }
 
-    public void clear() {
+    private void clear() {
         cardItems.clear();
         adapter.notifyDataSetChanged();
     }
